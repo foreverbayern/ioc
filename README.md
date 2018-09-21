@@ -9,3 +9,6 @@ ioc简单实现
     1. 抽象beanfactory
     2. 将bean初始化放入beanfactory
     3. xml
+    
+##step 3:
+    为bean注入属性
