@@ -1,5 +1,7 @@
 package com.lm.ioc;
 
+import com.lm.ioc.factory.AutowireCapableBeanFactory;
+import com.lm.ioc.factory.BeanFactory;
 import org.junit.Test;
 
 /**
@@ -10,11 +12,12 @@ public class BeanFactoryTest {
 
     @Test
     public void test() {
-        BeanFactory factory = new BeanFactory();
-        BeanDefinition beanDefinition = new BeanDefinition(new HelloWorldService());
+        BeanFactory factory = new AutowireCapableBeanFactory();
+
+        BeanDefinition beanDefinition = new BeanDefinition();
+        beanDefinition.setBeanClassName("com.lm.ioc.HelloWorldService");
         factory.registerBeanDefinition("helloWorldService", beanDefinition);
 
-        //获取bean
         HelloWorldService helloWorldService = (HelloWorldService) factory.getBean("helloWorldService");
         helloWorldService.helloWorld();
     }
