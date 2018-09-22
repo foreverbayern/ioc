@@ -12,3 +12,6 @@ ioc简单实现
     
 ##step 3:
     为bean注入属性
+    
+##step 4:
+    xml

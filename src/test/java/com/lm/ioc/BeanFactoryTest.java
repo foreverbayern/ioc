@@ -2,7 +2,10 @@ package com.lm.ioc;
 
 import com.lm.ioc.factory.AutowireCapableBeanFactory;
 import com.lm.ioc.factory.BeanFactory;
+import com.lm.ioc.io.ResourceLoader;
 import org.junit.Test;
+
+import java.util.Map;
 
 /**
  * @author:lucky date:2018/9/21
@@ -11,20 +14,19 @@ import org.junit.Test;
 public class BeanFactoryTest {
 
     @Test
-    public void test() throws IllegalAccessException, NoSuchFieldException, InstantiationException {
+    public void test() throws Exception {
+        //1.读取配置
+        XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(new ResourceLoader());
+        reader.loadBeanDefinitions("ioc.xml");
+
+        //初始化beanfactory并注册bean
         BeanFactory factory = new AutowireCapableBeanFactory();
+        for (Map.Entry<String, BeanDefinition> definitionEntry : reader.getRegistry().entrySet()) {
+            factory.registerBeanDefinition(definitionEntry.getKey(),definitionEntry.getValue());
+        }
 
-        BeanDefinition beanDefinition = new BeanDefinition();
-        beanDefinition.setBeanClassName("com.lm.ioc.HelloWorldService");
-
-
-        //设置属性,按道理这些都是从xml中解析出来的
-        PropertyValues propertyValues = new PropertyValues();
-        propertyValues.addPropertyValue(new PropertyValue("text","nihao!"));
-        beanDefinition.setPropertyValues(propertyValues);
-        factory.registerBeanDefinition("helloWorldService", beanDefinition);
-
-        HelloWorldService helloWorldService = (HelloWorldService) factory.getBean("helloWorldService");
-        helloWorldService.helloWorld();
+        //获取bean
+        HelloWorldService service = (HelloWorldService) factory.getBean("helloWorldService");
+        service.helloWorld();
     }
 }
