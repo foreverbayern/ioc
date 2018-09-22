@@ -15,3 +15,6 @@ ioc简单实现
     
 ##step 4:
     xml
+    
+##step 5:
+    强化xml,ioc管理关联关系，ref

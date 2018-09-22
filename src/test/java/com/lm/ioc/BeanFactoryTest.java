@@ -1,5 +1,6 @@
 package com.lm.ioc;
 
+import com.lm.ioc.factory.AbstractBeanFactory;
 import com.lm.ioc.factory.AutowireCapableBeanFactory;
 import com.lm.ioc.factory.BeanFactory;
 import com.lm.ioc.io.ResourceLoader;
@@ -14,19 +15,41 @@ import java.util.Map;
 public class BeanFactoryTest {
 
     @Test
+    //懒加载
     public void test() throws Exception {
         //1.读取配置
         XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(new ResourceLoader());
         reader.loadBeanDefinitions("ioc.xml");
 
-        //初始化beanfactory并注册bean
-        BeanFactory factory = new AutowireCapableBeanFactory();
-        for (Map.Entry<String, BeanDefinition> definitionEntry : reader.getRegistry().entrySet()) {
-            factory.registerBeanDefinition(definitionEntry.getKey(),definitionEntry.getValue());
+        //2.初始化BeanFactory并注册bean
+        BeanFactory beanFactory = new AutowireCapableBeanFactory();
+        for (Map.Entry<String, BeanDefinition> entry : reader.getRegistry().entrySet()) {
+            beanFactory.registerBeanDefinition(entry.getKey(),entry.getValue());
         }
 
-        //获取bean
-        HelloWorldService service = (HelloWorldService) factory.getBean("helloWorldService");
-        service.helloWorld();
+        //3.获取bean
+        HelloWorldService helloWorldService = (HelloWorldService) beanFactory.getBean("helloWorldService");
+        helloWorldService.helloWorld();
+        OutputService outputService = helloWorldService.getOutputService();
+        System.out.println(outputService);
+    }
+
+
+    @Test
+    public void testPreInstantiate() throws Exception {
+        //1.读取配置
+        XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(new ResourceLoader());
+        reader.loadBeanDefinitions("ioc.xml");
+        //2.初始化BeanFacotry并注册bean
+        AbstractBeanFactory beanFactory = new AutowireCapableBeanFactory();
+        for (Map.Entry<String, BeanDefinition> entry : reader.getRegistry().entrySet()) {
+            beanFactory.registerBeanDefinition(entry.getKey(),entry.getValue());
+        }
+
+        //初始化bean
+        beanFactory.preInstantiateSingletons();
+
+        HelloWorldService helloWorldService = (HelloWorldService) beanFactory.getBean("helloWorldService");
+        helloWorldService.helloWorld();
     }
 }

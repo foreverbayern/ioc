@@ -2,6 +2,9 @@ package com.lm.ioc.factory;
 
 import com.lm.ioc.BeanDefinition;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -13,17 +16,34 @@ public abstract class AbstractBeanFactory implements BeanFactory {
 
     private Map<String, BeanDefinition> definitionMap = new ConcurrentHashMap<>();
 
+    private final List<String> beanDefinitionNames = new ArrayList<>();
+
     @Override
-    public Object getBean(String name) {
-        return definitionMap.get(name).getBean();
+    public Object getBean(String name) throws Exception{
+        BeanDefinition beanDefinition = definitionMap.get(name);
+        if (beanDefinition == null) {
+            throw new IllegalArgumentException("No bean named " + name + " is defined");
+        }
+        Object bean = beanDefinition.getBean();
+        if (bean == null) {
+            bean = doCreateBean(beanDefinition);
+        }
+        return bean;
     }
 
     @Override
     public void registerBeanDefinition(String name, BeanDefinition beanDefinition) throws IllegalAccessException, NoSuchFieldException, InstantiationException {
-        Object bean = doCreateBean(beanDefinition);
-        beanDefinition.setBean(bean);
         definitionMap.put(name, beanDefinition);
+        beanDefinitionNames.add(name);
     }
 
-    protected abstract Object doCreateBean(BeanDefinition beanDefinition) throws InstantiationException, IllegalAccessException, NoSuchFieldException;
+    public void preInstantiateSingletons() throws Exception {
+        Iterator<String> it = this.beanDefinitionNames.iterator();
+        for (; it.hasNext();) {
+            String next = it.next();
+            getBean(next);
+        }
+    }
+
+    protected abstract Object doCreateBean(BeanDefinition beanDefinition) throws Exception;
 }
