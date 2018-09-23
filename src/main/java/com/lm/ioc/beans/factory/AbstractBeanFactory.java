@@ -1,6 +1,6 @@
-package com.lm.ioc.factory;
+package com.lm.ioc.beans.factory;
 
-import com.lm.ioc.BeanDefinition;
+import com.lm.ioc.beans.BeanDefinition;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -22,7 +22,7 @@ public abstract class AbstractBeanFactory implements BeanFactory {
     public Object getBean(String name) throws Exception{
         BeanDefinition beanDefinition = definitionMap.get(name);
         if (beanDefinition == null) {
-            throw new IllegalArgumentException("No bean named " + name + " is defined");
+            throw new IllegalArgumentException("No beans named " + name + " is defined");
         }
         Object bean = beanDefinition.getBean();
         if (bean == null) {
@@ -31,7 +31,6 @@ public abstract class AbstractBeanFactory implements BeanFactory {
         return bean;
     }
 
-    @Override
     public void registerBeanDefinition(String name, BeanDefinition beanDefinition) throws IllegalAccessException, NoSuchFieldException, InstantiationException {
         definitionMap.put(name, beanDefinition);
         beanDefinitionNames.add(name);

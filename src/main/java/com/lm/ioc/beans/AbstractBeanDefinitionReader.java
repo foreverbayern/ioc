@@ -1,6 +1,6 @@
-package com.lm.ioc;
+package com.lm.ioc.beans;
 
-import com.lm.ioc.io.ResourceLoader;
+import com.lm.ioc.beans.io.ResourceLoader;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,5 +1,7 @@
 package com.lm.ioc.io;
 
+import com.lm.ioc.beans.io.Resource;
+import com.lm.ioc.beans.io.ResourceLoader;
 import org.junit.Assert;
 import org.junit.Test;
 

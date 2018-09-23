@@ -1,8 +1,8 @@
 package com.lm.ioc.xml;
 
-import com.lm.ioc.BeanDefinition;
-import com.lm.ioc.XmlBeanDefinitionReader;
-import com.lm.ioc.io.ResourceLoader;
+import com.lm.ioc.beans.BeanDefinition;
+import com.lm.ioc.beans.xml.XmlBeanDefinitionReader;
+import com.lm.ioc.beans.io.ResourceLoader;
 import org.junit.Assert;
 import org.junit.Test;
 

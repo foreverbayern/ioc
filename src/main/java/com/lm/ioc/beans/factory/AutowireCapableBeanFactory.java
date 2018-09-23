@@ -1,8 +1,8 @@
-package com.lm.ioc.factory;
+package com.lm.ioc.beans.factory;
 
-import com.lm.ioc.BeanDefinition;
+import com.lm.ioc.beans.BeanDefinition;
 import com.lm.ioc.BeanReference;
-import com.lm.ioc.PropertyValue;
+import com.lm.ioc.beans.PropertyValue;
 
 import java.lang.reflect.Field;
 

@@ -1,4 +1,4 @@
-package com.lm.ioc.io;
+package com.lm.ioc.beans.io;
 
 import java.io.InputStream;
 

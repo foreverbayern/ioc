@@ -1,4 +1,4 @@
-package com.lm.ioc;
+package com.lm.ioc.beans;
 
 /**
  * @author:lucky date:2018/9/21

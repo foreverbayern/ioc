@@ -1,7 +1,11 @@
-package com.lm.ioc;
+package com.lm.ioc.beans.xml;
 
 
-import com.lm.ioc.io.ResourceLoader;
+import com.lm.ioc.BeanReference;
+import com.lm.ioc.beans.AbstractBeanDefinitionReader;
+import com.lm.ioc.beans.BeanDefinition;
+import com.lm.ioc.beans.PropertyValue;
+import com.lm.ioc.beans.io.ResourceLoader;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

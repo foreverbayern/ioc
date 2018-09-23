@@ -1,9 +1,11 @@
 package com.lm.ioc;
 
-import com.lm.ioc.factory.AbstractBeanFactory;
-import com.lm.ioc.factory.AutowireCapableBeanFactory;
-import com.lm.ioc.factory.BeanFactory;
-import com.lm.ioc.io.ResourceLoader;
+import com.lm.ioc.beans.BeanDefinition;
+import com.lm.ioc.beans.xml.XmlBeanDefinitionReader;
+import com.lm.ioc.beans.factory.AbstractBeanFactory;
+import com.lm.ioc.beans.factory.AutowireCapableBeanFactory;
+import com.lm.ioc.beans.factory.BeanFactory;
+import com.lm.ioc.beans.io.ResourceLoader;
 import org.junit.Test;
 
 import java.util.Map;
@@ -22,7 +24,7 @@ public class BeanFactoryTest {
         reader.loadBeanDefinitions("ioc.xml");
 
         //2.初始化BeanFactory并注册bean
-        BeanFactory beanFactory = new AutowireCapableBeanFactory();
+        AbstractBeanFactory beanFactory = new AutowireCapableBeanFactory();
         for (Map.Entry<String, BeanDefinition> entry : reader.getRegistry().entrySet()) {
             beanFactory.registerBeanDefinition(entry.getKey(),entry.getValue());
         }

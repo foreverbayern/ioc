@@ -1,4 +1,4 @@
-package com.lm.ioc;
+package com.lm.ioc.beans;
 
 import java.util.ArrayList;
 import java.util.List;
