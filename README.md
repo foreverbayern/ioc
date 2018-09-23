@@ -18,6 +18,3 @@ ioc简单实现
     
 ##step 5:
     强化xml,ioc管理关联关系，ref
-  
-##step 6:
-    applicationContext登录
