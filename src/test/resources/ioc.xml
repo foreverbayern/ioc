@@ -16,4 +16,8 @@
         <property name="text" value="Hello World!"/>
         <property name="outputService" ref="outputService"/>
     </bean>
+
+    <bean name="sayService" class="com.lm.ioc.aop.bean.SayServiceImpl">
+
+    </bean>
 </beans>

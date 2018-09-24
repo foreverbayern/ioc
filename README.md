@@ -21,3 +21,6 @@ ioc简单实现
     
 ##step 6:
     增加applicationContext
+    
+##step 7:
+    aop MethodInterceptor
